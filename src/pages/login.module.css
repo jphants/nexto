@@ -1,238 +1,287 @@
 /* pages/login.module.css */
 
-/* Estilos compartidos para el selector de tipo de usuario */
-.userTypeSelector {
-  display: flex;
-  justify-content: center;
-  gap: 1rem;
-  margin-bottom: 1.5rem;
-}
-
-.activeButton {
-  padding: 0.5rem 1rem;
-  border-radius: 0.375rem;
-  font-size: 0.875rem;
-  font-weight: 500;
-  font-family: Arial, sans-serif;
-  transition: background-color 0.2s, color 0.2s;
-}
-
-.inactiveButton {
-  padding: 0.5rem 1rem;
-  border-radius: 0.375rem;
-  font-size: 0.875rem;
-  font-weight: 500;
-  font-family: Arial, sans-serif;
-  transition: background-color 0.2s, color 0.2s;
-  background-color: #e5e7eb; /* Gris claro */
-  color: #4b5563; /* Gris medio */
-}
-
-.activeButton:hover,
-.inactiveButton:hover {
-  opacity: 0.9;
-}
-
-/* Tema Claro (Usuario Común) */
+/* Contenedor principal */
 .containerLight {
   min-height: 100vh;
   width: 100%;
   display: flex;
-  flex-direction: column;
   align-items: center;
   justify-content: center;
   background-color: #f9fafb; /* Gris muy claro */
   padding: 1rem;
+  transition: background-color 0.5s ease;
 }
 
-.cardLight {
-  background-color: white;
+.containerDark {
+  min-height: 100vh;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #1e293b; /* Azul grisáceo oscuro */
+  padding: 1rem;
+  transition: background-color 0.5s ease;
+}
+
+/* Contenedor dividido */
+.splitContainer {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 48rem;
+  height: 80vh;
+  border-radius: 1rem;
+  overflow: hidden;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Fondo dividido en dos secciones */
+.backgroundSections {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+}
+
+/* Sección (izquierda o derecha) */
+.section {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   padding: 2rem;
-  border-radius: 0.5rem;
+  background-color: #3b82f6; /* Azul para las descripciones */
+  color: white;
+  cursor: pointer;
+  transition: background-color 0.5s ease;
+}
+
+.section:hover {
+  background-color: #2563eb; /* Azul más oscuro al pasar el mouse */
+}
+
+/* Descripción */
+.description {
+  text-align: center;
+}
+
+.descriptionTitle {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  font-family: Arial, sans-serif;
+}
+
+.descriptionText {
+  font-size: 1rem;
+  font-family: Arial, sans-serif;
+}
+
+/* Formulario que se mueve */
+.formWrapper {
+  position: absolute;
+  top: 0;
   width: 100%;
   max-width: 24rem;
+  height: 100%;
+  padding: 2rem;
   box-sizing: border-box;
+  transition: transform 0.5s ease; /* Animación de movimiento */
 }
 
+.formLeft {
+  transform: translateX(0); /* Lado izquierdo */
+}
+
+.formRight {
+  transform: translateX(100%); /* Lado derecho */
+}
+
+/* Estilos del formulario (Claro y Oscuro) */
+.formLight {
+  background-color: white;
+  border-radius: 0.5rem;
+  height: 100%;
+  transition: background-color 0.5s ease;
+}
+
+.formDark {
+  background-color: #2d3748;
+  border-radius: 0.5rem;
+  height: 100%;
+  transition: background-color 0.5s ease;
+}
+
+/* Tema Claro */
 .titleLight {
   font-size: 1.5rem;
   font-weight: 600;
-  color: #1e293b; /* Azul grisáceo oscuro */
+  color: #1e293b;
   text-align: center;
   margin-bottom: 1.5rem;
   font-family: Arial, sans-serif;
+  transition: color 0.5s ease;
 }
 
 .labelLight {
   display: block;
   font-size: 0.875rem;
   font-weight: 500;
-  color: #64748b; /* Gris medio */
+  color: #64748b;
   margin-bottom: 0.25rem;
   font-family: Arial, sans-serif;
+  transition: color 0.5s ease;
 }
 
 .inputLight {
   width: 100%;
   padding: 0.75rem;
-  border: 1px solid #e2e8f0; /* Borde gris claro */
+  border: 1px solid #e2e8f0;
   border-radius: 0.375rem;
   font-size: 1rem;
   outline: none;
-  transition: border-color 0.2s;
+  transition: border-color 0.5s ease, background-color 0.5s ease, color 0.5s ease, box-shadow 0.5s ease;
   font-family: Arial, sans-serif;
   background-color: #f9fafb;
   color: #1e293b;
 }
 
 .inputLight:focus {
-  border-color: #93c5fd; /* Azul claro */
+  border-color: #93c5fd;
   box-shadow: 0 0 0 2px rgba(147, 197, 253, 0.5);
 }
 
 .linkLight {
   font-size: 0.875rem;
-  color: #3b82f6; /* Azul claro */
+  color: #3b82f6;
   text-decoration: none;
   font-family: Arial, sans-serif;
+  transition: color 0.5s ease;
 }
 
 .linkLight:hover {
-  color: #2563eb; /* Azul más oscuro */
+  color: #2563eb;
   text-decoration: underline;
 }
 
 .buttonLight {
   width: 100%;
   padding: 0.75rem;
-  background-color: #3b82f6; /* Azul claro */
+  background-color: #3b82f6;
   color: white;
   font-size: 1rem;
   font-weight: 500;
   border: none;
   border-radius: 0.375rem;
   cursor: pointer;
-  transition: background-color 0.2s;
+  transition: background-color 0.5s ease;
   font-family: Arial, sans-serif;
 }
 
 .buttonLight:hover {
-  background-color: #2563eb; /* Azul más oscuro */
+  background-color: #2563eb;
 }
 
-.activeButtonLight {
-  background-color: #3b82f6; /* Azul claro */
-  color: white;
-}
-
-/* Tema Oscuro (Dueño de Tienda) */
-.containerDark {
-  min-height: 100vh;
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  background-color: #1e293b; /* Azul grisáceo oscuro */
-  padding: 1rem;
-}
-
-.cardDark {
-  background-color: #2d3748; /* Gris oscuro */
-  padding: 2rem;
-  border-radius: 0.5rem;
-  width: 100%;
-  max-width: 24rem;
-  box-sizing: border-box;
-}
-
+/* Tema Oscuro */
 .titleDark {
   font-size: 1.5rem;
   font-weight: 600;
-  color: #e2e8f0; /* Gris claro */
+  color: #e2e8f0;
   text-align: center;
   margin-bottom: 1.5rem;
   font-family: Arial, sans-serif;
+  transition: color 0.5s ease;
 }
 
 .labelDark {
   display: block;
   font-size: 0.875rem;
   font-weight: 500;
-  color: #94a3b8; /* Gris más claro */
+  color: #94a3b8;
   margin-bottom: 0.25rem;
   font-family: Arial, sans-serif;
+  transition: color 0.5s ease;
 }
 
 .inputDark {
   width: 100%;
   padding: 0.75rem;
-  border: 1px solid #4b5563; /* Borde gris medio */
+  border: 1px solid #4b5563;
   border-radius: 0.375rem;
   font-size: 1rem;
   outline: none;
-  transition: border-color 0.2s;
+  transition: border-color 0.5s ease, background-color 0.5s ease, color 0.5s ease, box-shadow 0.5s ease;
   font-family: Arial, sans-serif;
-  background-color: #374151; /* Gris oscuro */
-  color: #e2e8f0; /* Texto claro */
+  background-color: #374151;
+  color: #e2e8f0;
 }
 
 .inputDark:focus {
-  border-color: #60a5fa; /* Azul claro */
+  border-color: #60a5fa;
   box-shadow: 0 0 0 2px rgba(96, 165, 250, 0.5);
 }
 
 .inputDark::placeholder {
-  color: #9ca3af; /* Gris claro para placeholder */
+  color: #9ca3af;
 }
 
 .linkDark {
   font-size: 0.875rem;
-  color: #60a5fa; /* Azul claro */
+  color: #60a5fa;
   text-decoration: none;
   font-family: Arial, sans-serif;
+  transition: color 0.5s ease;
 }
 
 .linkDark:hover {
-  color: #93c5fd; /* Azul más claro */
+  color: #93c5fd;
   text-decoration: underline;
 }
 
 .buttonDark {
   width: 100%;
   padding: 0.75rem;
-  background-color: #60a5fa; /* Azul claro */
+  background-color: #60a5fa;
   color: white;
   font-size: 1rem;
   font-weight: 500;
   border: none;
   border-radius: 0.375rem;
   cursor: pointer;
-  transition: background-color 0.2s;
+  transition: background-color 0.5s ease;
   font-family: Arial, sans-serif;
 }
 
 .buttonDark:hover {
-  background-color: #3b82f6; /* Azul más oscuro */
+  background-color: #3b82f6;
 }
 
-.activeButtonDark {
-  background-color: #60a5fa; /* Azul claro */
-  color: white;
-}
-
-/* Media query para computadoras */
+/* Media query para pantallas grandes */
 @media (min-width: 640px) {
-  .containerLight,
-  .containerDark {
-    padding: 2rem;
+  .backgroundSections {
+    flex-direction: row;
   }
-  .cardLight,
-  .cardDark {
-    padding: 2.5rem;
+  .splitContainer {
+    height: 70vh;
   }
-  .titleLight,
-  .titleDark {
+  .section {
+    padding: 3rem;
+  }
+  .descriptionTitle {
     font-size: 2rem;
+  }
+  .descriptionText {
+    font-size: 1.2rem;
+  }
+  .formWrapper {
+    width: 50%; /* Ocupa la mitad del contenedor */
+    max-width: 24rem;
+  }
+  .formLeft {
+    transform: translateX(0); /* Lado izquierdo */
+  }
+  .formRight {
+    transform: translateX(100%); /* Lado derecho */
   }
 }
