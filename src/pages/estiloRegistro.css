@@ -1,0 +1,172 @@
+body, html {
+  margin: 10px;
+  padding: 10px;
+  max-width: 100%;
+  font-family: Arial, sans-serif;
+}
+
+.registro-container {
+  background-color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 5vh; /* menos alto que 100vh */
+  transition: background-color 0.5s ease;
+  padding: 1rem;
+}
+
+.registro-box {
+  background-color: white;
+  padding: 0.5rem 8rem; /* menos alto, más ancho */
+  border-radius: 1.5rem;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 1000px; /* más ancho */
+  min-width: 400px;  /* para que no se haga demasiado pequeño */
+  transition: background-color 0.5s ease;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid #ddd; /* para visualizar cambios, opcional */
+}
+
+
+
+/* Título */
+.registro-title {
+  font-size: 2rem;
+  font-weight: 600;
+  text-align: center;
+  margin-bottom: 1.5rem;
+  color: #1e293b;
+  transition: color 0.5s ease;
+}
+
+/* Formulario */
+.registro-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+/* Etiquetas */
+label {
+  display: block;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #64748b;
+  margin-bottom: 0.25rem;
+  transition: color 0.5s ease;
+}
+
+/* Campos de entrada y select */
+input[type="text"],
+input[type="email"],
+input[type="password"],
+select {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid #e2e8f0;
+  border-radius: 0.375rem;
+  font-size: 1rem;
+  background-color: #f9fafb;
+  color: #1e293b;
+  font-family: Arial, sans-serif;
+  outline: none;
+  transition: 
+    border-color 0.5s ease, 
+    background-color 0.5s ease, 
+    color 0.5s ease, 
+    box-shadow 0.5s ease;
+}
+
+input:focus,
+select:focus {
+  border-color: #93c5fd;
+  box-shadow: 0 0 0 2px rgba(147, 197, 253, 0.5);
+}
+
+/* Error */
+.registro-error {
+  color: #ef4444;
+  font-size: 0.875rem;
+}
+
+/* Botón principal */
+.registro-button {
+  width: 107%;
+  background-color: #3b82f6;
+  color: white;
+  padding: 0.75rem;
+  border: none;
+  border-radius: 0.375rem;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  font-family: Arial, sans-serif;
+  transition: background-color 0.5s ease;
+}
+
+.registro-button:hover {
+  background-color: #2563eb;
+}
+
+/* Footer */
+.registro-footer {
+  margin-top: 1.5rem;
+  font-size: 0.875rem;
+  text-align: center;
+  color: #4b5563;
+}
+
+.registro-link {
+  color: #3b82f6;
+  text-decoration: none;
+  margin-left: 0.25rem;
+  font-family: Arial, sans-serif;
+  transition: color 0.5s ease;
+}
+
+.registro-link:hover {
+  color: #2563eb;
+  text-decoration: underline;
+}
+
+/* Toggle tipo de cuenta */
+.tipoCuentaToggle {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+}
+
+.toggleBtn {
+  flex: 1;
+  padding: 0.5rem 1rem;
+  border: 2px solid #cbd5e1;
+  background-color: #f1f5f9;
+  color: #1e293b;
+  border-radius: 0.375rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: 
+    background-color 0.3s ease, 
+    border-color 0.3s ease;
+}
+
+.toggleBtn:hover {
+  background-color: #e2e8f0;
+}
+
+.toggleBtn.active {
+  background-color: #3b82f6;
+  color: white;
+  border-color: #3b82f6;
+}
+
+/* Media queries para responsividad */
+@media (max-width: 480px) {
+  .registro-box {
+    padding: 2rem 1.5rem;
+    border-radius: 1.5rem;
+  }
+}

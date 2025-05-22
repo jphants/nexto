@@ -1,3 +1,8 @@
 // RegisterPage.tsx
-const RegisterPage = () => <h2>Register Page</h2>;
+import Registro from './Registro'
+import './estiloRegistro.css'
+
+const RegisterPage = () => {
+    return <Registro />;
+};
 export default RegisterPage;
