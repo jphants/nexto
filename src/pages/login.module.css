@@ -1,0 +1,238 @@
+/* pages/login.module.css */
+
+/* Estilos compartidos para el selector de tipo de usuario */
+.userTypeSelector {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.activeButton {
+  padding: 0.5rem 1rem;
+  border-radius: 0.375rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  font-family: Arial, sans-serif;
+  transition: background-color 0.2s, color 0.2s;
+}
+
+.inactiveButton {
+  padding: 0.5rem 1rem;
+  border-radius: 0.375rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  font-family: Arial, sans-serif;
+  transition: background-color 0.2s, color 0.2s;
+  background-color: #e5e7eb; /* Gris claro */
+  color: #4b5563; /* Gris medio */
+}
+
+.activeButton:hover,
+.inactiveButton:hover {
+  opacity: 0.9;
+}
+
+/* Tema Claro (Usuario Común) */
+.containerLight {
+  min-height: 100vh;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: #f9fafb; /* Gris muy claro */
+  padding: 1rem;
+}
+
+.cardLight {
+  background-color: white;
+  padding: 2rem;
+  border-radius: 0.5rem;
+  width: 100%;
+  max-width: 24rem;
+  box-sizing: border-box;
+}
+
+.titleLight {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #1e293b; /* Azul grisáceo oscuro */
+  text-align: center;
+  margin-bottom: 1.5rem;
+  font-family: Arial, sans-serif;
+}
+
+.labelLight {
+  display: block;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #64748b; /* Gris medio */
+  margin-bottom: 0.25rem;
+  font-family: Arial, sans-serif;
+}
+
+.inputLight {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid #e2e8f0; /* Borde gris claro */
+  border-radius: 0.375rem;
+  font-size: 1rem;
+  outline: none;
+  transition: border-color 0.2s;
+  font-family: Arial, sans-serif;
+  background-color: #f9fafb;
+  color: #1e293b;
+}
+
+.inputLight:focus {
+  border-color: #93c5fd; /* Azul claro */
+  box-shadow: 0 0 0 2px rgba(147, 197, 253, 0.5);
+}
+
+.linkLight {
+  font-size: 0.875rem;
+  color: #3b82f6; /* Azul claro */
+  text-decoration: none;
+  font-family: Arial, sans-serif;
+}
+
+.linkLight:hover {
+  color: #2563eb; /* Azul más oscuro */
+  text-decoration: underline;
+}
+
+.buttonLight {
+  width: 100%;
+  padding: 0.75rem;
+  background-color: #3b82f6; /* Azul claro */
+  color: white;
+  font-size: 1rem;
+  font-weight: 500;
+  border: none;
+  border-radius: 0.375rem;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  font-family: Arial, sans-serif;
+}
+
+.buttonLight:hover {
+  background-color: #2563eb; /* Azul más oscuro */
+}
+
+.activeButtonLight {
+  background-color: #3b82f6; /* Azul claro */
+  color: white;
+}
+
+/* Tema Oscuro (Dueño de Tienda) */
+.containerDark {
+  min-height: 100vh;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: #1e293b; /* Azul grisáceo oscuro */
+  padding: 1rem;
+}
+
+.cardDark {
+  background-color: #2d3748; /* Gris oscuro */
+  padding: 2rem;
+  border-radius: 0.5rem;
+  width: 100%;
+  max-width: 24rem;
+  box-sizing: border-box;
+}
+
+.titleDark {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #e2e8f0; /* Gris claro */
+  text-align: center;
+  margin-bottom: 1.5rem;
+  font-family: Arial, sans-serif;
+}
+
+.labelDark {
+  display: block;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #94a3b8; /* Gris más claro */
+  margin-bottom: 0.25rem;
+  font-family: Arial, sans-serif;
+}
+
+.inputDark {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid #4b5563; /* Borde gris medio */
+  border-radius: 0.375rem;
+  font-size: 1rem;
+  outline: none;
+  transition: border-color 0.2s;
+  font-family: Arial, sans-serif;
+  background-color: #374151; /* Gris oscuro */
+  color: #e2e8f0; /* Texto claro */
+}
+
+.inputDark:focus {
+  border-color: #60a5fa; /* Azul claro */
+  box-shadow: 0 0 0 2px rgba(96, 165, 250, 0.5);
+}
+
+.inputDark::placeholder {
+  color: #9ca3af; /* Gris claro para placeholder */
+}
+
+.linkDark {
+  font-size: 0.875rem;
+  color: #60a5fa; /* Azul claro */
+  text-decoration: none;
+  font-family: Arial, sans-serif;
+}
+
+.linkDark:hover {
+  color: #93c5fd; /* Azul más claro */
+  text-decoration: underline;
+}
+
+.buttonDark {
+  width: 100%;
+  padding: 0.75rem;
+  background-color: #60a5fa; /* Azul claro */
+  color: white;
+  font-size: 1rem;
+  font-weight: 500;
+  border: none;
+  border-radius: 0.375rem;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  font-family: Arial, sans-serif;
+}
+
+.buttonDark:hover {
+  background-color: #3b82f6; /* Azul más oscuro */
+}
+
+.activeButtonDark {
+  background-color: #60a5fa; /* Azul claro */
+  color: white;
+}
+
+/* Media query para computadoras */
+@media (min-width: 640px) {
+  .containerLight,
+  .containerDark {
+    padding: 2rem;
+  }
+  .cardLight,
+  .cardDark {
+    padding: 2.5rem;
+  }
+  .titleLight,
+  .titleDark {
+    font-size: 2rem;
+  }
+}

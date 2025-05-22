@@ -1,12 +1,14 @@
 import React, { useState } from 'react';
+import styles from './login.module.css';
 
 interface LoginFormState {
   email: string;
   password: string;
 }
 
-const LoginPage: React.FC = () => {
+const Login: React.FC = () => {
   const [formData, setFormData] = useState<LoginFormState>({ email: '', password: '' });
+  const [userType, setUserType] = useState<'common' | 'owner'>('common'); // Estado para tipo de usuario
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -14,17 +16,32 @@ const LoginPage: React.FC = () => {
   };
 
   const handleLogin = () => {
-    // Lógica para manejar el login, por ejemplo, enviar datos a una API
-    console.log('Datos de login:', formData);
-    alert('Login intentado con: ' + JSON.stringify(formData));
+    console.log(`Datos de login (${userType}):`, formData);
+    alert(`Login intentado (${userType === 'common' ? 'Usuario Común' : 'Dueño de Tienda'}): ${JSON.stringify(formData)}`);
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-100 to-purple-100">
-      <div className="bg-white p-10 rounded-2xl shadow-2xl w-full max-w-sm transform transition-all duration-300 hover:scale-105">
-        <h2 className="text-3xl font-extrabold mb-8 text-center text-gray-900">Bienvenido</h2>
+    <div className={userType === 'common' ? styles.containerLight : styles.containerDark}>
+      <div className={styles.userTypeSelector}>
+        <button
+          onClick={() => setUserType('common')}
+          className={userType === 'common' ? styles.activeButton : styles.inactiveButton}
+        >
+          Usuario Común
+        </button>
+        <button
+          onClick={() => setUserType('owner')}
+          className={userType === 'owner' ? styles.activeButton : styles.inactiveButton}
+        >
+          Dueño de Tienda
+        </button>
+      </div>
+      <div className={userType === 'common' ? styles.cardLight : styles.cardDark}>
+        <h2 className={userType === 'common' ? styles.titleLight : styles.titleDark}>
+          {userType === 'common' ? 'Bienvenido' : 'Panel de Tienda'}
+        </h2>
         <div className="mb-5">
-          <label className="block text-gray-600 text-sm font-semibold mb-2" htmlFor="email">
+          <label className={userType === 'common' ? styles.labelLight : styles.labelDark} htmlFor="email">
             Correo Electrónico
           </label>
           <input
@@ -33,13 +50,13 @@ const LoginPage: React.FC = () => {
             name="email"
             value={formData.email}
             onChange={handleInputChange}
-            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent transition duration-200"
+            className={userType === 'common' ? styles.inputLight : styles.inputDark}
             placeholder="tu@correo.com"
             required
           />
         </div>
         <div className="mb-6">
-          <label className="block text-gray-600 text-sm font-semibold mb-2" htmlFor="password">
+          <label className={userType === 'common' ? styles.labelLight : styles.labelDark} htmlFor="password">
             Contraseña
           </label>
           <input
@@ -48,19 +65,19 @@ const LoginPage: React.FC = () => {
             name="password"
             value={formData.password}
             onChange={handleInputChange}
-            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent transition duration-200"
+            className={userType === 'common' ? styles.inputLight : styles.inputDark}
             placeholder="••••••••"
             required
           />
         </div>
         <div className="flex justify-end mb-6">
-          <a href="#" className="text-sm text-blue-500 hover:text-blue-700 hover:underline transition duration-200">
+          <a href="#" className={userType === 'common' ? styles.linkLight : styles.linkDark}>
             ¿Olvidaste tu contraseña?
           </a>
         </div>
         <button
           onClick={handleLogin}
-          className="w-full bg-gradient-to-r from-blue-500 to-indigo-500 text-white font-semibold py-3 px-4 rounded-lg hover:from-blue-600 hover:to-indigo-600 transform hover:scale-105 transition duration-300"
+          className={userType === 'common' ? styles.buttonLight : styles.buttonDark}
         >
           Iniciar Sesión
         </button>
@@ -69,4 +86,4 @@ const LoginPage: React.FC = () => {
   );
 };
 
-export default LoginPage;
+export default Login;
