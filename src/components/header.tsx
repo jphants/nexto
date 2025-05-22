@@ -1,22 +1,34 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 
-// Variables de color para facilitar el control del estilo
 const colors = {
-  background: " #5B5B5B",       // gris neutro
-  border: " #000000",           // negro discreto para bordes
-  textPrimary: " #000000",      // texto principal
-  textSecondary: " #333333",    // texto secundario
-  buttonBg: " #E0E0E0",         // fondo del botón
-  buttonText: " #1C1C1C",       // texto del botón
-  buttonBorder: " #B0B0B0",     // borde del botón
+  background: "#5B5B5B",
+  border: "#000000",
+  textPrimary: "#000000",
+  textSecondary: "#333333",
+  buttonBg: "#E0E0E0",
+  buttonText: "#1C1C1C",
+  buttonBorder: "#B0B0B0",
 };
 
 const Header = () => {
+  const navigate = useNavigate();
+
   return (
     <header style={styles.header}>
-      <h1 style={styles.logo}>Nexto</h1>
+    <h1
+        style={{ ...styles.logo, cursor: "pointer" }}
+        onClick={() => navigate("/")}
+      >
+        Nexto
+      </h1>
       <nav style={styles.nav}>
-        <button style={styles.loginButton}>Login</button>
+        <button style={styles.loginButton} onClick={() => navigate("/login")}>
+          Login
+        </button>
+        <button style={styles.loginButton} onClick={() => navigate("/register")}>
+          Register
+        </button>
       </nav>
     </header>
   );
