@@ -1,6 +1,6 @@
-// src/pages/FormPage.tsx
 import { useState, useEffect } from "react";
 import axios from "axios";
+import "./FormPage.css";
 
 const API_URL = "http://localhost:3001/posts";
 
@@ -36,16 +36,20 @@ export default function FormPage() {
   };
 
   return (
-    <div style={{ padding: 20 }}>
+    <div className="container">
       <h1>Nuevo Post</h1>
       <form onSubmit={handleSubmit}>
+        <label htmlFor="title">Título</label>
         <input
+          id="title"
           name="title"
           placeholder="Título"
           value={formData.title}
           onChange={handleChange}
         />
+        <label htmlFor="content">Contenido</label>
         <input
+          id="content"
           name="content"
           placeholder="Contenido"
           value={formData.content}

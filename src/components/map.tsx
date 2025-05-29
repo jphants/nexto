@@ -2,8 +2,18 @@ import React, { useState, useEffect } from "react";
 import { MapContainer, TileLayer, Marker, Popup, useMap } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import L from "leaflet";
+import axios from "axios";
+import "./Map.css";
 
-// Evita problemas con íconos por defecto en Leaflet (opcional pero recomendable)
+const API_URL = "http://localhost:3001/posts";
+
+type Post = {
+  id: number;
+  title: string;
+  content: string;
+};
+
+// Evita problemas con íconos por defecto en Leaflet
 delete (L.Icon.Default.prototype as any)._getIconUrl;
 L.Icon.Default.mergeOptions({
   iconRetinaUrl: "https://unpkg.com/leaflet@1.9.3/dist/images/marker-icon-2x.png",
@@ -46,9 +56,24 @@ const Map = () => {
   const [timeLeft, setTimeLeft] = useState<number>(0);
   const [intervalId, setIntervalId] = useState<NodeJS.Timeout | null>(null);
   const [userPosition, setUserPosition] = useState<[number, number] | null>(null);
+  const [posts, setPosts] = useState<Post[]>([]);
+
+  // Fetch posts from API
+  const fetchPosts = async () => {
+    try {
+      const res = await axios.get(API_URL);
+      setPosts(res.data);
+    } catch (error) {
+      console.error("Error fetching posts:", error);
+    }
+  };
 
   useEffect(() => {
-    // Obtener ubicación del usuario al montar el componente
+    fetchPosts();
+  }, []);
+
+  // Fetch user location
+  useEffect(() => {
     if ("geolocation" in navigator) {
       navigator.geolocation.getCurrentPosition(
         (pos) => {
@@ -98,7 +123,7 @@ const Map = () => {
     if (!activeSection) return null;
     const section = sections[activeSection as keyof typeof sections];
     return (
-      <div style={styles.section}>
+      <div className="section">
         <h2>{section.title}</h2>
         <p>{section.description}</p>
         <p>
@@ -109,22 +134,21 @@ const Map = () => {
   };
 
   return (
-    <div style={styles.container}>
+    <div className="container">
       <h1>Mapa</h1>
-      <div style={styles.buttons}>
+      <div className="buttons">
         <button onClick={() => handleSectionClick("section1")}>Zona Norte</button>
         <button onClick={() => handleSectionClick("section2")}>Centro Histórico</button>
         <button onClick={() => handleSectionClick("section3")}>Zona Industrial</button>
       </div>
       {renderSection()}
-
       <MapContainer
         center={userPosition || [19.4326, -99.1332]}
         zoom={13}
-        style={{ height: "400px", width: "100%", marginTop: "20px" }}
+        className="mapContainer"
       >
         <TileLayer
-          attribution='&copy; <a href="https://osm.org/copyright">OpenStreetMap</a> contributors'
+          attribution='© <a href="https://osm.org/copyright">OpenStreetMap</a> contributors'
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
         {userPosition && (
@@ -145,26 +169,18 @@ const Map = () => {
           </Marker>
         ))}
       </MapContainer>
+      <div className="postsContainer">
+        <h2 className="postsTitle">Posts</h2>
+        <ul className="postList">
+          {posts.map((p) => (
+            <li key={p.id} className="postItem">
+              <strong>{p.title}</strong>: {p.content}
+            </li>
+          ))}
+        </ul>
+      </div>
     </div>
   );
-};
-
-const styles: { [key: string]: React.CSSProperties } = {
-  container: {
-    padding: "20px",
-  },
-  buttons: {
-    display: "flex",
-    gap: "10px",
-    marginBottom: "20px",
-  },
-  section: {
-    border: "1px solid #ccc",
-    borderRadius: "8px",
-    padding: "16px",
-    backgroundColor: "rgb(0, 0, 0)",
-    color: "white",
-  },
 };
 
 export default Map;
