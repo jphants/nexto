@@ -29,6 +29,9 @@ const Header = () => {
         <button style={styles.loginButton} onClick={() => navigate("/register")}>
           Register
         </button>
+        <button style={styles.loginButton} onClick={() => navigate("/formPage")}>
+          New entry
+        </button>
       </nav>
     </header>
   );
