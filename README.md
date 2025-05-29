@@ -1,15 +1,28 @@
-# Backend
+## 🚀 Backend
+
+### Instalar dependencias
+
+```bash
 cd server
 npm install
+```
+### Run
 
-# Frontend (en otra terminal)
-cd client
-npm install
-
-# Correr server
+```bash
 cd server
 node index.js
+```
+## 🚀 Frontend
 
-# Correr cliente
-cd client
-npm run dev  # O 'npm start' si usas Create React App
+### Instalar dependencias
+
+```bash
+npm install
+```
+### Run
+
+```bash
+npm run dev
+```
+
+
