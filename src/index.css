@@ -5,29 +5,59 @@
 
   color-scheme: light dark;
   color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
-
+  background: radial-gradient(circle at center, #1A2C34 0%, #0A0F1A 70%);
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
-}
-a:hover {
-  color: #535bf2;
+/* Ensure html allows scrolling */
+html {
+  height: 100%;
+  overflow: auto;
 }
 
 body {
   margin: 0;
-  display: flex;
-  place-items: center;
   min-width: 320px;
   min-height: 100vh;
+  background: inherit;
+  position: relative;
+  overflow: auto; /* Allow scrolling */
+}
+
+/* Custom scrollbar styles for Webkit browsers (Chrome, Safari, Edge) */
+body::-webkit-scrollbar {
+  width: 8px; /* Slim scrollbar */
+}
+
+body::-webkit-scrollbar-track {
+  background: #0A0F1A; /* Matches background */
+}
+
+body::-webkit-scrollbar-thumb {
+  background: #00C7B7; /* Cyan to match buttons */
+  border-radius: 4px;
+}
+
+body::-webkit-scrollbar-thumb:hover {
+  background: #00A699; /* Darker cyan on hover */
+}
+
+/* Custom scrollbar for Firefox */
+body {
+  scrollbar-width: thin;
+  scrollbar-color: #00C7B7 #0A0F1A; /* Thumb and track colors */
+}
+
+a {
+  font-weight: 500;
+  color: #00C7B7;
+  text-decoration: inherit;
+}
+a:hover {
+  color: #00A699;
 }
 
 h1 {
@@ -43,11 +73,12 @@ button {
   font-weight: 500;
   font-family: inherit;
   background-color: #1a1a1a;
+  color: #ffffff;
   cursor: pointer;
-  transition: border-color 0.25s;
+  transition: border-color 0.25s, background-color 0.3s ease;
 }
 button:hover {
-  border-color: #646cff;
+  border-color: #00C7B7;
 }
 button:focus,
 button:focus-visible {
@@ -57,12 +88,26 @@ button:focus-visible {
 @media (prefers-color-scheme: light) {
   :root {
     color: #213547;
-    background-color: #ffffff;
+    background: radial-gradient(circle at center, #E6F0FA 0%, #ffffff 70%);
+  }
+  body::-webkit-scrollbar-track {
+    background: #ffffff; /* Light background for scrollbar track */
+  }
+  body::-webkit-scrollbar-thumb {
+    background: #00C7B7;
+  }
+  body::-webkit-scrollbar-thumb:hover {
+    background: #00A699;
+  }
+  body {
+    scrollbar-width: thin;
+    scrollbar-color: #00C7B7 #ffffff;
   }
   a:hover {
-    color: #747bff;
+    color: #00A699;
   }
   button {
     background-color: #f9f9f9;
+    color: #213547;
   }
 }
