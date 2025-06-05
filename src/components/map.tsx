@@ -13,7 +13,7 @@ type Post = {
   content: string;
 };
 
-// Evita problemas con íconos por defecto en Leaflet
+// Configurar íconos de Leaflet
 delete (L.Icon.Default.prototype as any)._getIconUrl;
 L.Icon.Default.mergeOptions({
   iconRetinaUrl: "https://unpkg.com/leaflet@1.9.3/dist/images/marker-icon-2x.png",
@@ -38,11 +38,10 @@ const sections = {
     title: "Zona Industrial",
     description: "Área de fábricas y almacenes.",
     duration: 300,
-    position: [19.40, -99.12],
+    position: [19.4, -99.12],
   },
 };
 
-// Componente para centrar el mapa dinámicamente
 const FlyToLocation = ({ position }: { position: [number, number] }) => {
   const map = useMap();
   useEffect(() => {
@@ -56,9 +55,9 @@ const Map = () => {
   const [timeLeft, setTimeLeft] = useState<number>(0);
   const [intervalId, setIntervalId] = useState<NodeJS.Timeout | null>(null);
   const [userPosition, setUserPosition] = useState<[number, number] | null>(null);
+  const [loadingLocation, setLoadingLocation] = useState(true);
   const [posts, setPosts] = useState<Post[]>([]);
 
-  // Fetch posts from API
   const fetchPosts = async () => {
     try {
       const res = await axios.get(API_URL);
@@ -72,20 +71,23 @@ const Map = () => {
     fetchPosts();
   }, []);
 
-  // Fetch user location
+  // Obtener ubicación del usuario
   useEffect(() => {
     if ("geolocation" in navigator) {
       navigator.geolocation.getCurrentPosition(
         (pos) => {
           const { latitude, longitude } = pos.coords;
           setUserPosition([latitude, longitude]);
+          setLoadingLocation(false);
         },
         (err) => {
           console.error("Error obteniendo ubicación:", err);
+          setLoadingLocation(false); // Aunque falle, quitar el loading
         }
       );
     } else {
-      console.warn("Geolocalización no soportada por el navegador.");
+      console.warn("Geolocalización no soportada.");
+      setLoadingLocation(false);
     }
   }, []);
 
@@ -142,33 +144,37 @@ const Map = () => {
         <button onClick={() => handleSectionClick("section3")}>Zona Industrial</button>
       </div>
       {renderSection()}
-      <MapContainer
-        center={userPosition || [19.4326, -99.1332]}
-        zoom={13}
-        className="mapContainer"
-      >
-        <TileLayer
-          attribution='© <a href="https://osm.org/copyright">OpenStreetMap</a> contributors'
-          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-        />
-        {userPosition && (
-          <>
-            <FlyToLocation position={userPosition} />
-            <Marker position={userPosition}>
-              <Popup>Tu ubicación actual</Popup>
+
+      {/* Esperar a tener ubicación antes de mostrar el mapa */}
+      {!loadingLocation && (
+        <MapContainer
+          center={userPosition || [19.4326, -99.1332]}
+          zoom={13}
+          className="mapContainer"
+        >
+          <TileLayer
+            attribution='© <a href="https://osm.org/copyright">OpenStreetMap</a> contributors'
+            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+          />
+          {userPosition && (
+            <>
+              <Marker position={userPosition}>
+                <Popup>Tu ubicación actual</Popup>
+              </Marker>
+            </>
+          )}
+          {Object.entries(sections).map(([key, section]) => (
+            <Marker key={key} position={section.position as [number, number]}>
+              <Popup>
+                <strong>{section.title}</strong>
+                <br />
+                {section.description}
+              </Popup>
             </Marker>
-          </>
-        )}
-        {Object.entries(sections).map(([key, section]) => (
-          <Marker key={key} position={section.position as [number, number]}>
-            <Popup>
-              <strong>{section.title}</strong>
-              <br />
-              {section.description}
-            </Popup>
-          </Marker>
-        ))}
-      </MapContainer>
+          ))}
+        </MapContainer>
+      )}
+
       <div className="postsContainer">
         <h2 className="postsTitle">Posts</h2>
         <ul className="postList">
