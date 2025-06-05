@@ -6,10 +6,10 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import LoginPage from "./pages/login";
 import RegisterPage from "./pages/register";
 import FormPage from './pages/formPage';
-
 function App() {
 
   return (
+    
     <BrowserRouter>
       <Header />
       <Routes>

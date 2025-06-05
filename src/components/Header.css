@@ -12,6 +12,13 @@
   z-index: 1000;
 }
 
+.welcome-text {
+  color: white;
+  margin-right: 1rem;
+  font-weight: bold;
+}
+
+
 .logo-button {
   font-family: 'Inter', sans-serif;
   font-size: 1.5rem;
