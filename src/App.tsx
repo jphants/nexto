@@ -1,26 +1,38 @@
-
 import './App.css'
 import Map from './components/map'
 import Header from './components/header'
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import LoginPage from "./pages/login";
 import RegisterPage from "./pages/register";
 import FormPage from './pages/formPage';
-function App() {
+import WelcomePage from './pages/WelcomePage';
+import MainPage from './pages/MainPage';
+
+const AppRoutes = () => {
+  const location = useLocation();
+  const isWelcomePage = location.pathname === '/';
 
   return (
-    
-    <BrowserRouter>
-      <Header />
+    <>
+      {!isWelcomePage && <Header />}
       <Routes>
+        <Route path="/" element={<WelcomePage />} />
+        <Route path="/main" element={<MainPage />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<RegisterPage />} />
         <Route path="/formPage" element={<FormPage />} />
-        <Route path="/" element={<Map />} />
+        <Route path="/map" element={<Map />} />
       </Routes>
-    </BrowserRouter>
+    </>
+  );
+};
 
-  )
+function App() {
+  return (
+    <BrowserRouter>
+      <AppRoutes />
+    </BrowserRouter>
+  );
 }
 
-export default App
+export default App;
