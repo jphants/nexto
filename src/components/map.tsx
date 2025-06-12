@@ -136,57 +136,71 @@ const Map = () => {
   };
 
   return (
-    <div className="container">
-      <h1>Mapa</h1>
-      <div className="buttons">
-        <button onClick={() => handleSectionClick("section1")}>Zona Norte</button>
-        <button onClick={() => handleSectionClick("section2")}>Centro Histórico</button>
-        <button onClick={() => handleSectionClick("section3")}>Zona Industrial</button>
+  <div className="mapWrapper">
+    {/* Botones encima del mapa */}
+    <div className="mapBottomBarFull">
+      <div className="zoneButtons">
+        {Object.entries(sections).map(([key, section]) => (
+          <button
+            key={key}
+            onClick={() => handleSectionClick(key)}
+            className={activeSection === key ? "active" : ""}
+          >
+            {section.title}
+          </button>
+        ))}
       </div>
-      {renderSection()}
 
-      {/* Esperar a tener ubicación antes de mostrar el mapa */}
-      {!loadingLocation && (
-        <MapContainer
-          center={userPosition || [19.4326, -99.1332]}
-          zoom={13}
-          className="mapContainer"
-        >
-          <TileLayer
-            attribution='© <a href="https://osm.org/copyright">OpenStreetMap</a> contributors'
-            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-          />
-          {userPosition && (
-            <>
-              <Marker position={userPosition}>
-                <Popup>Tu ubicación actual</Popup>
-              </Marker>
-            </>
-          )}
-          {Object.entries(sections).map(([key, section]) => (
-            <Marker key={key} position={section.position as [number, number]}>
-              <Popup>
-                <strong>{section.title}</strong>
-                <br />
-                {section.description}
-              </Popup>
-            </Marker>
-          ))}
-        </MapContainer>
+      {activeSection && (
+        <div className="zoneInfoBar">
+          <h3>{sections[activeSection].title}</h3>
+          <p>{sections[activeSection].description}</p>
+          <p className="remainingTime">
+            ⏱️ Tiempo restante: <strong>{formatTime(timeLeft)}</strong>
+          </p>
+        </div>
       )}
-
-      <div className="postsContainer">
-        <h2 className="postsTitle">Posts</h2>
-        <ul className="postList">
-          {posts.map((p) => (
-            <li key={p.id} className="postItem">
-              <strong>{p.title}</strong>: {p.content}
-            </li>
-          ))}
-        </ul>
-      </div>
     </div>
-  );
+
+    {!loadingLocation && (
+      <MapContainer
+        center={userPosition || [19.4326, -99.1332]}
+        zoom={13}
+        className="mapContainer"
+      >
+        <TileLayer
+          attribution='© <a href="https://osm.org/copyright">OpenStreetMap</a> contributors'
+          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+        />
+        {userPosition && (
+          <Marker position={userPosition}>
+            <Popup>Tu ubicación actual</Popup>
+          </Marker>
+        )}
+        {Object.entries(sections).map(([key, section]) => (
+          <Marker key={key} position={section.position as [number, number]}>
+            <Popup>
+              <strong>{section.title}</strong>
+              <br />
+              {section.description}
+            </Popup>
+          </Marker>
+        ))}
+      </MapContainer>
+    )}
+
+    <div className="postsContainer">
+      <h2 className="postsTitle">Posts</h2>
+      <ul className="postList">
+        {posts.map((p) => (
+          <li key={p.id} className="postItem">
+            <strong>{p.title}</strong>: {p.content}
+          </li>
+        ))}
+      </ul>
+    </div>
+  </div>
+);
 };
 
 export default Map;

@@ -47,9 +47,9 @@ const Login: React.FC = () => {
     alert(`Login exitoso como ${userType === 'common' ? 'Usuario Común' : 'Dueño de Tienda'}`);
     localStorage.setItem('user', JSON.stringify(data.user)); // asumiendo que data.user viene del backend
     if (userType === 'common') {
-      navigate('/');
+      navigate('/main');
     } else {
-      navigate('/');
+      navigate('/main');
     }
     
 

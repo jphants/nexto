@@ -31,18 +31,16 @@ body,
 }
 
 .mapWrapper {
-  flex: 1;
-  width: 100%;
-  height: 100%;
+  height: 100vh; /* Ocupa toda la altura de la pantalla */
+  width: 100vw;
   position: relative;
+  overflow: hidden;
 }
 
 .mapContainer {
-  position: absolute;
-  top: 0;
-  left: 0;
   width: 100%;
   height: 100%;
+  z-index: 0;
 }
 
 .controls {
@@ -55,25 +53,75 @@ body,
   flex-wrap: wrap;
 }
 
-button {
-  padding: 0.5rem 1rem;
-  background-color: #6366f1;
-  color: white;
+.mapWrapper {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.mapContainer {
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+}
+
+.mapBottomBarFull {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background-color: #0A0F1A;
+  box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.2);
+  padding: 10px 15px;
+  z-index: 500;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.zoneButtons {
+  display: flex;
+  justify-content: space-around;
+}
+
+.zoneButtons button {
+  flex: 1;
+  margin: 0 5px;
+  padding: 10px;
+  font-size: 1rem;
+  background-color: #00C7B7;
   border: none;
-  border-radius: 0.5rem;
-  font-weight: 500;
+  border-radius: 8px;
   cursor: pointer;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-  transition: background-color 0.2s ease-in-out;
 }
 
-button:hover {
-  background-color: #4338ca;
+.zoneButtons button.active {
+  background-color: #FF5733;
+  font-weight: bold;
 }
 
-.leaflet-top.leaflet-left {
-  top: 5rem !important;  /* Empuja hacia abajo */
-  left: 1rem !important; /* Separa del borde izquierdo */
+.zoneInfoBar {
+  text-align: center;
+  padding: 5px 10px;
+  font-size: 0.9rem;
+  background-color: #243f58;
+  border-radius: 10px;
+  border-top: 1px solid #223450;
+}
+
+.zoneInfoBar h3 {
+  margin: 0;
+  font-size: 1.1rem;
+}
+
+.zoneInfoBar p {
+  margin: 2px 0;
+}
+
+.remainingTime {
+  font-weight: 500;
+  color: #e85d04;
 }
 
 .leaflet-control-zoom {
@@ -82,6 +130,7 @@ button:hover {
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
   background-color: #ffffffee;
   backdrop-filter: blur(6px);
+  z-index: 1000;
 }
 
 .leaflet-control-zoom a {
@@ -93,5 +142,32 @@ button:hover {
 }
 
 .leaflet-control-zoom a:hover {
-  background-color: #e0e7ff;
+  background-color: #171f39;
+}
+
+.buttonWithCounter {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 0 10px;
+  text-align: center;
+}
+
+.counterInfo {
+  margin-top: 5px;
+  font-size: 0.8rem;
+  color: #444;
+}
+
+.description {
+  font-style: italic;
+  margin-bottom: 2px;
+}
+
+.sectionOverlay {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  background: white;
+  z-index: 600;
 }

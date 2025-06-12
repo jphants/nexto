@@ -97,7 +97,7 @@ const Registro = () => {
 
     // Registro exitoso, redirigir o mostrar mensaje
     console.log('Registro exitoso:', data);
-    navigate('/'); // o a donde quieras
+    navigate('/main'); // o a donde quieras
   } catch (error) {
     setError('Error de conexión con el servidor');
     console.error(error);

@@ -22,6 +22,7 @@ const AppRoutes = () => {
         <Route path="/register" element={<RegisterPage />} />
         <Route path="/formPage" element={<FormPage />} />
         <Route path="/map" element={<Map />} />
+        <Route path="/main" element={<MainPage />} />
       </Routes>
     </>
   );
