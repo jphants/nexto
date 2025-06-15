@@ -1,39 +1,24 @@
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom"
 import './App.css'
-import Map from './components/map'
-import Header from './components/header'
-import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
-import LoginPage from "./pages/login";
-import RegisterPage from "./pages/register";
-import FormPage from './pages/formPage';
-import WelcomePage from './pages/WelcomePage';
-import MainPage from './pages/MainPage';
-
-const AppRoutes = () => {
-  const location = useLocation();
-  const isWelcomePage = location.pathname === '/';
-
+import { Header } from './components/Header'
+import { BusinessRegisterForm } from './pages/RegisterBusiness'
+import { LoginBusiness } from "./pages/LoginBusiness"
+import { NewAdd } from "./pages/NewAdd" // suponiendo que creás ese archivo
+import { AdsNearby } from "./pages/Ads"
+export const App = () => {
   return (
-    <>
-      {!isWelcomePage && <Header />}
+    <Router>
+      <Header />
+      
       <Routes>
-        <Route path="/" element={<WelcomePage />} />
-        <Route path="/main" element={<MainPage />} />
-        <Route path="/login" element={<LoginPage />} />
-        <Route path="/register" element={<RegisterPage />} />
-        <Route path="/formPage" element={<FormPage />} />
-        <Route path="/map" element={<Map />} />
-        <Route path="/main" element={<MainPage />} />
+        <Route path="/register/business" element={<BusinessRegisterForm />} />
+        <Route path="/ads" element={<AdsNearby />} />
+        <Route path="/login/business" element={<LoginBusiness />} />
+        <Route path="/newadd" element={<NewAdd />} />
+        {/* Puedes agregar una ruta raíz o 404 */}
       </Routes>
-    </>
-  );
-};
-
-function App() {
-  return (
-    <BrowserRouter>
-      <AppRoutes />
-    </BrowserRouter>
-  );
+    </Router>
+  )
 }
 
-export default App;
+export default App
