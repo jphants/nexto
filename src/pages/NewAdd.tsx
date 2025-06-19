@@ -44,7 +44,7 @@ export const NewAdd: React.FC = () => {
       setTitle("")
       setDescription("")
       setEndDate("")
-      navigate("/")
+      navigate("/ads")
     } catch (err: any) {
       setError(err.message)
     }

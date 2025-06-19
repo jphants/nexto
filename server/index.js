@@ -78,7 +78,7 @@ app.post("/newadd", (req, res) => {
 
 app.get("/ads", (req, res) => {
   const sql = `
-    SELECT ads.*, businesses.name AS businessName
+    SELECT ads.*, businesses.name AS businessName, businesses.latitude, businesses.longitude
     FROM ads
     JOIN businesses ON ads.business_id = businesses.id
     WHERE datetime(ads.end_date) > datetime('now')
@@ -94,8 +94,6 @@ app.get("/ads", (req, res) => {
     res.status(200).json({ ads: rows })
   })
 })
-
-
 
 app.listen(PORT, () => {
   console.log(`Servidor backend corriendo en http://localhost:${PORT}`)

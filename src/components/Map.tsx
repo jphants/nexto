@@ -5,12 +5,16 @@ import L from "leaflet";
 import axios from "axios";
 import "./Map.css";
 
-const API_URL = "http://localhost:3001/posts";
+const API_URL = "http://localhost:3001/ads";
 
-type Post = {
+type Ad = {
   id: number;
   title: string;
-  content: string;
+  description: string;
+  end_date: string;
+  businessName: string;
+  latitude: number;
+  longitude: number;
 };
 
 // Configurar íconos de Leaflet
@@ -53,24 +57,23 @@ const FlyToLocation = ({ position }: { position: [number, number] }) => {
 };
 
 const Map = () => {
-  const [activeSection, setActiveSection] = useState<SectionKey | null>(null);
-  const [timeLeft, setTimeLeft] = useState<number>(0);
-  const [intervalId, setIntervalId] = useState<ReturnType<typeof setInterval> | null>(null);
+  // Removed activeSection and related state
+  const [activeAdId, setActiveAdId] = useState<number | null>(null);
   const [userPosition, setUserPosition] = useState<[number, number] | null>(null);
   const [loadingLocation, setLoadingLocation] = useState(true);
-  const [posts, setPosts] = useState<Post[]>([]);
+  const [ads, setAds] = useState<Ad[]>([]);
 
-  const fetchPosts = async () => {
+  const fetchAds = async () => {
     try {
       const res = await axios.get(API_URL);
-      setPosts(res.data);
+      setAds(res.data.ads || []);
     } catch (error) {
-      console.error("Error fetching posts:", error);
+      console.error("Error fetching ads:", error);
     }
   };
 
   useEffect(() => {
-    fetchPosts();
+    fetchAds();
   }, []);
 
   // Obtener ubicación del usuario
@@ -101,68 +104,25 @@ const Map = () => {
     return `${m}:${s}`;
   };
 
-  const handleSectionClick = (key: string) => {
-    if (intervalId) clearInterval(intervalId);
-    setActiveSection(key as SectionKey);
-    setTimeLeft(sections[key as keyof typeof sections].duration);
-    const newInterval = setInterval(() => {
-      setTimeLeft((prev) => {
-        if (prev <= 1) {
-          clearInterval(newInterval);
-          return 0;
-        }
-        return prev - 1;
-      });
-    }, 1000);
-    setIntervalId(newInterval);
+  const handleAdClick = (adId: number) => {
+    setActiveAdId(adId);
   };
 
   useEffect(() => {
-    return () => {
-      if (intervalId) clearInterval(intervalId);
-    };
-  }, [intervalId]);
+    // Removed intervalId cleanup as intervalId state was removed
+  }, []);
 
   const renderSection = () => {
-    if (!activeSection) return null;
-    const section = sections[activeSection as keyof typeof sections];
-    return (
-      <div className="section">
-        <h2>{section.title}</h2>
-        <p>{section.description}</p>
-        <p>
-          <strong>Tiempo restante:</strong> {formatTime(timeLeft)}
-        </p>
-      </div>
-    );
+    // Removed renderSection as activeSection state was removed
+    return null;
   };
 
   return (
   <div className="mapWrapper">
     {/* Botones encima del mapa */}
-    <div className="mapBottomBarFull">
-      <div className="zoneButtons">
-        {Object.entries(sections).map(([key, section]) => (
-          <button
-            key={key}
-            onClick={() => handleSectionClick(key)}
-            className={activeSection === key ? "active" : ""}
-          >
-            {section.title}
-          </button>
-        ))}
+      <div className="mapBottomBarFull">
+        {/* Removed zone buttons and info bar */}
       </div>
-
-      {activeSection && (
-        <div className="zoneInfoBar">
-          <h3>{sections[activeSection].title}</h3>
-          <p>{sections[activeSection].description}</p>
-          <p className="remainingTime">
-            ⏱️ Tiempo restante: <strong>{formatTime(timeLeft)}</strong>
-          </p>
-        </div>
-      )}
-    </div>
 
     {!loadingLocation && (
       <MapContainer
@@ -188,18 +148,45 @@ const Map = () => {
             </Popup>
           </Marker>
         ))}
+
+        {ads.map((ad) => (
+          <Marker
+            key={ad.id}
+            position={[ad.latitude, ad.longitude]}
+            opacity={activeAdId === ad.id ? 1 : 0.6}
+          >
+            <Popup>
+              <strong>{ad.title}</strong>
+              <br />
+              {ad.description}
+              <br />
+              <em>Empresa: {ad.businessName}</em>
+              <br />
+              <small>Finaliza: {new Date(ad.end_date).toLocaleString()}</small>
+            </Popup>
+          </Marker>
+        ))}
+
+        {activeAdId !== null && (() => {
+          const activeAd = ads.find(ad => ad.id === activeAdId);
+          if (!activeAd) return null;
+          return <FlyToLocation position={[activeAd.latitude, activeAd.longitude]} />;
+        })()}
       </MapContainer>
     )}
 
     <div className="postsContainer">
-      <h2 className="postsTitle">Posts</h2>
-      <ul className="postList">
-        {posts.map((p) => (
-          <li key={p.id} className="postItem">
-            <strong>{p.title}</strong>: {p.content}
-          </li>
+      <div className="zoneButtons">
+        {ads.map((ad) => (
+          <button
+            key={ad.id}
+            onClick={() => handleAdClick(ad.id)}
+            className={activeAdId === ad.id ? "active" : ""}
+          >
+            {ad.title}
+          </button>
         ))}
-      </ul>
+      </div>
     </div>
   </div>
 );
